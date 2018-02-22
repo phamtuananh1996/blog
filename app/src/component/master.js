@@ -3,7 +3,13 @@ import Header from './layout/header';
 import Footer from './layout/footer';
 import SideBar from './layout/sidebar';
 import Slide from './layout/slide';
-import { Home } from './home/home';
+import routes from './../routes';
+import {
+	BrowserRouter as Router,
+	Route,
+	Link,
+	Switch
+  } from 'react-router-dom'
 export class Master extends React.Component {
 	constructor(props) {
 		super(props);
@@ -11,13 +17,26 @@ export class Master extends React.Component {
 	}
 	render() {
 		return (
-			<div class="boxed">
+			<Router>
+			<div className="boxed">
 				<Header />
-				<section class="content">
-					<div class="wrapper">
+				<section className="content">
+					<div className="wrapper">
 						<Slide />
-						<div class="content-block has-sidebar">
-							<Home />
+						<div className="content-block has-sidebar">
+								<Switch>
+									{
+										routes.map((route,index)=>{
+											return (
+												<Route exact={route.exact}
+													   path={route.path}
+													   component={route.main}
+													   key={index}
+												/>
+											)
+										})
+									}
+								</Switch>
 							<SideBar />
 						</div>
 					</div>
@@ -25,6 +44,7 @@ export class Master extends React.Component {
 
 				<Footer />
 			</div>
+			</Router>
 		)
 	}
 }
