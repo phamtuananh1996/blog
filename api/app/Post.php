@@ -1,7 +1,7 @@
 <?php
 
 namespace App;
-
+use App\Category;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 class Post extends Model
@@ -12,8 +12,15 @@ class Post extends Model
     protected $fillable =[
     	'title','content','image','views','hot','order'
     ];
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+
     public function isHot()
     {
     	return $this->hot===Post::HOT;
     }
+
 }

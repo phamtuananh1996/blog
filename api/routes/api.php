@@ -18,3 +18,7 @@ Route::resource('users', 'User\UserController',['except'=>['create','edit']]);
 Route::resource('categories', 'Category\CategoryController',['except'=>['create','edit']]);
 
 Route::resource('posts', 'Post\PostController',['except'=>['create','edit']]);
+
+Route::resource('posts/filter/{filter}/{amount}', 'Post\PostFilterController',['only'=>'index']);
+
+Route::resource('category.posts', 'Category\CategoryPostController',['only'=>'index']);

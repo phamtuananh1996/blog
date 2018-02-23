@@ -1,21 +1,28 @@
 <?php
 
 namespace App\Http\Controllers\Post;
-use App\Post;
+
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-
-class PostController extends Controller
+use App\Post;
+class PostFilterController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($filter,$amount)
     {
-        $posts=Post::orderBy('id','DESC')->with('category')->paginate(6);
-        return response()->json(['data'=>$posts],200);
+        switch ($filter) {
+            case 'hot':
+               $posts=Post::where('hot',1)->orderBy('id','DESC')->limit($amount)->get();
+            break;
+            default:
+            
+            break;
+        }
+          return response()->json(['data'=>$posts],200);
     }
 
     /**
@@ -45,9 +52,9 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Post $post)
+    public function show($id)
     {
-        return response()->json(['data'=>$post],200);
+        //
     }
 
     /**
